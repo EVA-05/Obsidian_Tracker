@@ -1,7 +1,7 @@
 ---
 style:
   - default
-Week: 4
+Month: 3
 ---
 
 ```dataviewjs
@@ -17,95 +17,52 @@ const rawStyle = dv.current().style;
 const themeName = Array.isArray(rawStyle) ? rawStyle[0] : (rawStyle || "default");
 const t = themes[themeName] || themes["default"];
 
-// --- Week boundaries for current month (Monday-aligned) ---
+// --- Determine selected month ---
 const now = new Date();
 const year = now.getFullYear();
-const month = now.getMonth();
-const daysInMonth = new Date(year, month + 1, 0).getDate();
-const firstDow = new Date(year, month, 1).getDay(); // 0=Sun
-
-const weeks = [];
-let dayPtr = 1;
-
-// Week 1: from 1st to first Sunday (partial if month doesn't start Monday)
-if (firstDow !== 1) {
-  const daysUntilSun = firstDow === 0 ? 0 : (7 - firstDow);
-  weeks.push({ start: 1, end: 1 + daysUntilSun });
-  dayPtr = 2 + daysUntilSun;
-}
-
-// Weeks 2+ (Mon-Sun), cap at 5 total
-while (dayPtr <= daysInMonth) {
-  if (weeks.length >= 4) {
-    weeks.push({ start: dayPtr, end: daysInMonth });
-    break;
-  }
-  weeks.push({ start: dayPtr, end: Math.min(dayPtr + 6, daysInMonth) });
-  dayPtr += 7;
-}
-
-// --- Determine selected week ---
-const rawWeek = dv.current().Week;
-const weekNum = Number(Array.isArray(rawWeek) ? rawWeek[0] : rawWeek);
-let sel;
-
-if (weekNum >= 1 && weekNum <= weeks.length) {
-  sel = weekNum - 1;
-} else {
-  // Default: find which week contains today
-  const today = now.getDate();
-  sel = 0;
-  for (let i = 0; i < weeks.length; i++) {
-    if (today >= weeks[i].start && today <= weeks[i].end) {
-      sel = i;
-      break;
-    }
-  }
-}
-
-const wk = weeks[sel];
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+const rawMonth = dv.current().Month;
+const monthInput = Number(Array.isArray(rawMonth) ? rawMonth[0] : rawMonth);
+const month = (monthInput >= 1 && monthInput <= 12) ? monthInput - 1 : now.getMonth();
+
 const mName = monthNames[month];
 const monthNum = String(month + 1).padStart(2, "0");
 const yearStr = String(year);
 
-// --- Query and filter pages to selected week + current month ---
+// --- Query and filter pages to selected month ---
 const pages = dv.pages('"Logs"')
   .where(p => {
     const m = p.file.name.match(/Sleep - (\d{4})-(\d{2})-(\d{2})/);
     if (!m) return false;
-    if (m[1] !== yearStr || m[2] !== monthNum) return false;
-    const day = parseInt(m[3]);
-    return day >= wk.start && day <= wk.end;
+    return m[1] === yearStr && m[2] === monthNum;
   })
   .sort(p => p.file.name, "asc")
   .array();
 
-// --- Header ---
-dv.el("p", `**${mName} ${year}** — Week ${sel + 1} (${mName} ${wk.start}–${wk.end})`);
-
 if (pages.length === 0) {
-  dv.el("p", "No sleep logs for this week.");
+  dv.el("p", `**${mName} ${year}** — No sleep logs for this month.`);
 } else {
 
 // --- Build chart data ---
 const data = pages.map(p => {
   const m = p.file.name.match(/Sleep - \d{4}-\d{2}-(\d{2})/);
-  return {
-    label: `${mName} ${parseInt(m[1])}`,
-    sleep: Number(p.sleep_hours) || 0,
-  };
+  return { day: parseInt(m[1]), sleep: Number(p.sleep_hours) || 0 };
 });
 
-const W = 600, H = 280;
-const pad = { top: 30, right: 50, bottom: 40, left: 50 };
+const sleepVals = data.map(d => d.sleep);
+const avg = sleepVals.reduce((a, b) => a + b, 0) / sleepVals.length;
+const daysAtGoal = sleepVals.filter(v => v >= 8).length;
+
+const W = 800, H = 300;
+const pad = { top: 30, right: 20, bottom: 40, left: 44 };
 const cw = W - pad.left - pad.right;
 const ch = H - pad.top - pad.bottom;
-const yMin = 4, yMax = 12, goalVal = 8;
+const yMin = 4, yMax = 10, goalVal = 8;
 const n = data.length;
 
 const px = (i) => pad.left + (n === 1 ? cw / 2 : (i / (n - 1)) * cw);
-const py = (v) => pad.top + ch - ((v - yMin) / (yMax - yMin)) * ch;
+const py = (v) => pad.top + ch - ((Math.min(Math.max(v, yMin), yMax) - yMin) / (yMax - yMin)) * ch;
 
 let svg = `<svg width="100%" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="font-family:var(--font-monospace);">`;
 
@@ -127,25 +84,27 @@ svg += `<path d="${area}" fill="${t.bg}" opacity="0.5"/>`;
 // Data line
 let line = `M ${px(0)} ${py(data[0].sleep)}`;
 for (let i = 1; i < n; i++) line += ` L ${px(i)} ${py(data[i].sleep)}`;
-svg += `<path d="${line}" fill="none" stroke="${t.line}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`;
+svg += `<path d="${line}" fill="none" stroke="${t.line}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
 
-// Dots + value labels (flip below dot when near goal line)
-const goalPy = py(goalVal);
+// Dots
 for (let i = 0; i < n; i++) {
-  const cx = px(i), cy = py(data[i].sleep);
-  svg += `<circle cx="${cx}" cy="${cy}" r="4" fill="${t.dot}" stroke="var(--background-primary)" stroke-width="2"/>`;
-  const labelY = Math.abs(cy - goalPy) < 25 ? cy + 20 : cy - 10;
-  svg += `<text x="${cx}" y="${labelY}" fill="${t.text}" font-size="10" text-anchor="middle">${data[i].sleep}h</text>`;
+  svg += `<circle cx="${px(i)}" cy="${py(data[i].sleep)}" r="3" fill="${t.dot}" stroke="var(--background-primary)" stroke-width="1.5"/>`;
 }
 
-// X-axis labels
-for (let i = 0; i < n; i++) {
-  svg += `<text x="${px(i)}" y="${H - pad.bottom + 18}" fill="${t.text}" font-size="11" text-anchor="middle">${data[i].label}</text>`;
+// X-axis day numbers
+const step = n > 20 ? 2 : 1;
+for (let i = 0; i < n; i += step) {
+  svg += `<text x="${px(i)}" y="${H - pad.bottom + 18}" fill="${t.text}" font-size="10" text-anchor="middle">${data[i].day}</text>`;
 }
 
 svg += `</svg>`;
 const el = dv.container.createEl("div");
 el.innerHTML = svg;
+
+// --- Minimal stats ---
+const stats = dv.container.createEl("div");
+stats.style.cssText = "font-family:var(--font-monospace); font-size:11px; color:var(--text-muted); padding:6px 0 0; opacity:0.7;";
+stats.textContent = `avg ${avg.toFixed(1)}h · ${daysAtGoal}/${n} days at goal`;
 
 }
 ```

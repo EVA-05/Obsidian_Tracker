@@ -5,6 +5,7 @@
     "tags": "tags",
     "Style": "multitext",
     "Week": "number",
-    "Conditionals": "number"
+    "Conditionals": "number",
+    "Month": "number"
   }
 }
