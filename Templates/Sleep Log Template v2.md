@@ -3,7 +3,7 @@ style:
   - default
 Conditionals: 1
 ---
-sleep_hours:: 5.5
+sleep_hours:: 6
 wake_up:: 9.5
 sleep_in:: 23
 hr:: 50

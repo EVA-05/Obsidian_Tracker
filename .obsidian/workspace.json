@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "Templates/Sleep Log Template v2.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
@@ -195,7 +195,8 @@
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
       "bases:Create new base": false,
-      "templater-obsidian:Templater": false
+      "templater-obsidian:Templater": false,
+      "github-sync:Sync with Remote": false
     }
   },
   "active": "76aef5fc8e1a78a4",
