@@ -38,7 +38,7 @@ for (const p of pages) {
 }
 
 const W = 600, H = 280;
-const pad = { top: 30, right: 40, bottom: 40, left: 50 };
+const pad = { top: 30, right: 50, bottom: 40, left: 50 };
 const cw = W - pad.left - pad.right;
 const ch = H - pad.top - pad.bottom;
 const yMin = 4, yMax = 12, goalVal = 8;
@@ -55,7 +55,7 @@ for (let v = yMin; v <= yMax; v += 2) {
 }
 
 svg += `<line x1="${pad.left}" y1="${py(goalVal)}" x2="${W - pad.right}" y2="${py(goalVal)}" stroke="${t.goal}" stroke-width="1.5" stroke-dasharray="6,4"/>`;
-svg += `<text x="${W - pad.right + 4}" y="${py(goalVal) + 4}" fill="${t.goal}" font-size="10">goal</text>`;
+svg += `<text x="${W - pad.right + 4}" y="${py(goalVal) - 8}" fill="${t.goal}" font-size="10">goal</text>`;
 
 let area = `M ${px(0)} ${py(data[0].sleep)}`;
 for (let i = 1; i < n; i++) area += ` L ${px(i)} ${py(data[i].sleep)}`;
@@ -66,10 +66,12 @@ let line = `M ${px(0)} ${py(data[0].sleep)}`;
 for (let i = 1; i < n; i++) line += ` L ${px(i)} ${py(data[i].sleep)}`;
 svg += `<path d="${line}" fill="none" stroke="${t.line}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`;
 
+const goalPy = py(goalVal);
 for (let i = 0; i < n; i++) {
   const cx = px(i), cy = py(data[i].sleep);
   svg += `<circle cx="${cx}" cy="${cy}" r="4" fill="${t.dot}" stroke="var(--background-primary)" stroke-width="2"/>`;
-  svg += `<text x="${cx}" y="${cy - 10}" fill="${t.text}" font-size="10" text-anchor="middle">${data[i].sleep}h</text>`;
+  const labelY = Math.abs(cy - goalPy) < 25 ? cy + 20 : cy - 10;
+  svg += `<text x="${cx}" y="${labelY}" fill="${t.text}" font-size="10" text-anchor="middle">${data[i].sleep}h</text>`;
 }
 
 for (let i = 0; i < n; i++) {
