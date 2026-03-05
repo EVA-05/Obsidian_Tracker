@@ -1,7 +1,6 @@
 ---
 style:
-  - blue
-Conditionals: 0
+Conditionals: 1
 ---
 sleep_hours:: 7
 wake_up:: 8.5
