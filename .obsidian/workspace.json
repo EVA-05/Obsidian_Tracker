@@ -1,0 +1,240 @@
+{
+  "main": {
+    "id": "35159c1ad5f4974f",
+    "type": "split",
+    "children": [
+      {
+        "id": "d4119ab3939414a1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "76aef5fc8e1a78a4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Templates/Sleep Log Template v2.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Sleep Log Template v2"
+            }
+          },
+          {
+            "id": "eccd7a02859e40d3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Templates/Weekly Sleep Tracker Template.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Weekly Sleep Tracker Template"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "24aab84f2c7f2111",
+    "type": "split",
+    "children": [
+      {
+        "id": "e57c2cef3b5399f4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "24e1c85f4ced49b9",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "deb78fa296a15f70",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "fbd19d9dd5177dbd",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "right": {
+    "id": "dac4332d25c4ff82",
+    "type": "split",
+    "children": [
+      {
+        "id": "364fbd722f727cb0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "dc8c671318d6cb61",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "examples/BloodPressureTracker.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for BloodPressureTracker"
+            }
+          },
+          {
+            "id": "e28bed4fcd9cb276",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "examples/BloodPressureTracker.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from BloodPressureTracker"
+            }
+          },
+          {
+            "id": "e1d683922b25f19d",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "8d4f4fb8e89a2cb4",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "72125797f1f16aa8",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "examples/BloodPressureTracker.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of BloodPressureTracker"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "templater-obsidian:Templater": false
+    }
+  },
+  "active": "76aef5fc8e1a78a4",
+  "lastOpenFiles": [
+    "Templates/Weekly Sleep Tracker Template.md",
+    "Templates/Sleep Log Template v2.md",
+    "Weekly Sleep Tracker.md",
+    "Templates/Sleep Log Template.md",
+    "Logs/Sleep - 2026-03-03.md",
+    "Logs/Sleep - 2026-03-05.md",
+    "Sleep - 2026-03-07.md",
+    "Logs/Sleep - 2026-03-08.md",
+    "Logs/Sleep - 2026-03-07.md",
+    "Logs/Sleep - 2026-03-06.md",
+    "Logs/Sleep - 2026-03-02.md",
+    "Logs/Sleep - 2026-03-04.md",
+    "Sleep Tracker Testing Colors.md",
+    "Sleep - 2026-03-05.md",
+    "Sleep - 2026-03-04.md",
+    "Sleep - 2026-03-06.md",
+    "Templates/Sleep Tracker Template.md",
+    "Logs",
+    "Templates/Sleep Log.md",
+    "Templates",
+    "examples/TestBarChart.md",
+    "examples/TestBullet.md",
+    "examples/TestCalendar.md",
+    "examples/TestCommands.md",
+    "examples/TestDateFormats.md",
+    "examples/TestDvField.md",
+    "examples/TestEmoji.md",
+    "examples/TestExpression.md",
+    "data/Set-FileDates.ps1",
+    "data",
+    "diary",
+    "examples/data/Set-FileDates.ps1",
+    "examples/data",
+    "examples/example_generator.ts",
+    "examples/diary",
+    "examples"
+  ]
+}

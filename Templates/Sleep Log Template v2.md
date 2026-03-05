@@ -1,0 +1,92 @@
+---
+style:
+  - default
+Conditionals: 1
+---
+sleep_hours:: 5.5
+wake_up:: 9.5
+sleep_in:: 23
+hr:: 50
+hrv:: 70
+
+```dataviewjs
+const page = dv.current();
+
+const themes = {
+  default: { bar: "var(--text-normal)",  goal: "var(--text-accent)",   bg: "var(--background-secondary)" },
+  red:     { bar: "#f7768e",             goal: "#ff9e9e",             bg: "rgba(247,118,142,0.12)"      },
+  blue:    { bar: "#7aa2f7",             goal: "#a9c1f7",             bg: "rgba(122,162,247,0.12)"      },
+  green:   { bar: "#9ece6a",             goal: "#b9de8a",             bg: "rgba(158,206,106,0.12)"      },
+  purple:  { bar: "#9d7cd8",             goal: "#bb9ef7",             bg: "rgba(157,124,216,0.12)"      },
+};
+
+const rawStyle = page.style;
+const themeName = Array.isArray(rawStyle) ? rawStyle[0] : (rawStyle || "default");
+const theme = themes[themeName] || themes["default"];
+
+const conditionalsRaw = page.Conditionals;
+const conditionalsOn = Number(Array.isArray(conditionalsRaw) ? conditionalsRaw[0] : (conditionalsRaw ?? 1)) === 1;
+
+function fmtTime(v) {
+  const h24 = Math.floor(v) % 24;
+  const m = Math.round((v % 1) * 60);
+  const ampm = h24 < 12 ? "AM" : "PM";
+  const h12 = h24 % 12 || 12;
+  return `${h12}:${m.toString().padStart(2, "0")} ${ampm}`;
+}
+
+function fmtSleep(v) {
+  const h = Math.floor(v);
+  const m = Math.round((v % 1) * 60);
+  return `${h}h ${m}m`;
+}
+
+const metrics = [
+  { label: "Sleep",      val: page.sleep_hours, min: 0,  goal: 8,  max: 12,  t1: 1,  t2: 2,  display: fmtSleep(page.sleep_hours), goalText: "8h"       },
+  { label: "Wake Up",    val: page.wake_up,      min: 5,  goal: 8,  max: 12,  t1: 1,  t2: 2,  display: fmtTime(page.wake_up),      goalText: "8:00 AM"  },
+  { label: "Sleep In",   val: page.sleep_in,     min: 20, goal: 23, max: 26,  t1: 1,  t2: 2,  display: fmtTime(page.sleep_in),     goalText: "11:00 PM" },
+  { label: "Heart Rate", val: page.hr,           min: 40, goal: 60, max: 100, t1: 5,  t2: 10, dir: "low",  display: `${page.hr} bpm`,           goalText: "60 bpm"   },
+  { label: "HRV",        val: page.hrv,          min: 0,  goal: 70, max: 100, t1: 5,  t2: 10, dir: "high", display: `${page.hrv} ms`,           goalText: "70 ms"    },
+];
+
+const wrap = dv.el("div", "");
+wrap.style.cssText = "font-family: monospace; padding: 4px 0;";
+
+for (const m of metrics) {
+  const range = m.max - m.min;
+  const actualPct = Math.min(Math.max((m.val - m.min) / range, 0), 1) * 100;
+  const goalPct   = Math.min(Math.max((m.goal - m.min) / range, 0), 1) * 100;
+
+  const row = wrap.createEl("div", "");
+  row.style.cssText = "display:flex; align-items:center; margin:8px 0; gap:12px;";
+
+  const lbl = row.createEl("span", { text: m.label });
+  lbl.style.cssText = "width:90px; font-size:12px; color:var(--text-muted); flex-shrink:0;";
+
+  const barContainer = row.createEl("div", "");
+  barContainer.style.cssText = `flex:1; height:12px; background:${theme.bg}; border-radius:2px; position:relative;`;
+
+  const v = Number(m.val);
+  const diff = Math.abs(v - m.goal);
+  let barColor;
+  if (!conditionalsOn) {
+    barColor = theme.bar;
+  } else if (m.dir === "low") {
+    barColor = v <= m.goal ? "#9ece6a" : diff <= m.t2 ? "#e0af68" : "#f7768e";
+  } else if (m.dir === "high") {
+    barColor = v >= m.goal ? "#9ece6a" : diff <= m.t2 ? "#e0af68" : "#f7768e";
+  } else {
+    barColor = diff <= m.t1 ? "#9ece6a" : diff <= m.t2 ? "#e0af68" : "#f7768e";
+  }
+  const valColor = conditionalsOn ? barColor : "var(--text-muted)";
+
+  const fill = barContainer.createEl("div", "");
+  fill.style.cssText = `width:${actualPct}%; height:100%; background:${barColor}; border-radius:2px;`;
+
+  const goalMark = barContainer.createEl("div", "");
+  goalMark.style.cssText = `position:absolute; top:-3px; bottom:-3px; left:${goalPct}%; width:2px; background:var(--text-accent); border-radius:1px;`;
+
+  const val = row.createEl("span", { text: `${m.display} / ${m.goalText}` });
+  val.style.cssText = `font-size:11px; color:${valColor}; white-space:nowrap; flex-shrink:0; width:150px; text-align:right;`;
+}
+```
