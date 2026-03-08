@@ -1,7 +1,7 @@
 ---
 style:
   - default
-Week:
+Week: 3
 ---
 
 ```dataviewjs
@@ -101,7 +101,7 @@ const data = pages.map(p => {
   };
 });
 
-const W = 600, H = 280;
+const W = 600, H = 300;
 const pad = { top: 30, right: 70, bottom: 40, left: 50 };
 const cw = W - pad.left - pad.right;
 const ch = H - pad.top - pad.bottom;
@@ -126,7 +126,8 @@ let svg = `<svg width="100%" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/20
 // Y grid + left labels
 for (let v = yMin; v <= yMax; v += 2) {
   svg += `<line x1="${pad.left}" y1="${py(v)}" x2="${W - pad.right}" y2="${py(v)}" stroke="${t.grid}" stroke-width="1"/>`;
-  svg += `<text x="${pad.left - 8}" y="${py(v) + 4}" fill="${t.text}" font-size="11" text-anchor="end">${v}h</text>`;
+  const isGoalTick = v === goalVal;
+  svg += `<text x="${pad.left - 8}" y="${py(v) + 4}" fill="${isGoalTick ? "#9d7cd8" : t.text}" font-size="11" font-weight="${isGoalTick ? "bold" : "normal"}" text-anchor="end">${v}h</text>`;
 }
 
 // Right Y-axis labels (sleep-in times)
@@ -134,8 +135,7 @@ for (let v = yMin2; v <= yMax2; v++) {
   svg += `<text x="${W - pad.right + 8}" y="${py2(v) + 4}" fill="#7aa2f7" font-size="10" text-anchor="start" opacity="0.7">${fmtSleepIn(v)}</text>`;
 }
 
-// Goal line
-svg += `<line x1="${pad.left}" y1="${py(goalVal)}" x2="${W - pad.right}" y2="${py(goalVal)}" stroke="${t.goal}" stroke-width="1.5" stroke-dasharray="6,4"/>`;
+
 
 // Sleep area fill
 let area = `M ${px(0)} ${py(data[0].sleep)}`;
@@ -164,7 +164,7 @@ if (siPoints.length >= 2) {
 // Sleep data line
 let line = `M ${px(0)} ${py(data[0].sleep)}`;
 for (let i = 1; i < n; i++) line += ` L ${px(i)} ${py(data[i].sleep)}`;
-svg += `<path d="${line}" fill="none" stroke="${t.line}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`;
+svg += `<path d="${line}" fill="none" stroke="${t.line}" stroke-width="2.5" stroke-dasharray="6,4" stroke-linejoin="round" stroke-linecap="round"/>`;
 
 // Wake-up line (yellow)
 if (wuPoints.length >= 2) {
@@ -206,6 +206,21 @@ for (let i = 0; i < n; i++) {
 // X-axis labels
 for (let i = 0; i < n; i++) {
   svg += `<text x="${px(i)}" y="${H - pad.bottom + 18}" fill="${t.text}" font-size="11" text-anchor="middle">${data[i].label}</text>`;
+}
+
+// Legend (top-right, inside chart)
+const legend = [
+  { color: t.line, label: "Sleep", dash: "6,4" },
+  { color: "#e0af68", label: "Wake up", dash: null },
+  { color: "#7aa2f7", label: "Sleep in", dash: null },
+];
+let lx = pad.left;
+for (const item of legend) {
+  const ly = H - 8;
+  const dashAttr = item.dash ? `stroke-dasharray="${item.dash}"` : "";
+  svg += `<line x1="${lx}" y1="${ly}" x2="${lx + 18}" y2="${ly}" stroke="${item.color}" stroke-width="2" ${dashAttr}/>`;
+  svg += `<text x="${lx + 24}" y="${ly + 4}" fill="${t.text}" font-size="10">${item.label}</text>`;
+  lx += 90;
 }
 
 svg += `</svg>`;

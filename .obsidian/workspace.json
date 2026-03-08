@@ -64,7 +64,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -121,7 +121,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 275.5026054382324
   },
   "right": {
     "id": "dac4332d25c4ff82",
@@ -228,12 +228,12 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "1fe729cbeb3c0b26",
+  "active": "3a50fbffb3103fc6",
   "lastOpenFiles": [
-    "Monthly Sleep Tracker.md",
     "Weekly Sleep Tracker.md",
-    "Logs/To do.md",
+    "Monthly Sleep Tracker.md",
     "Logs/2026-03-05.md",
+    "Logs/To do.md",
     "Templates/Sleep Log Template.md",
     "Logs/Sleep - 2026-03-22.md",
     "Logs/Sleep - 2026-03-21.md",
