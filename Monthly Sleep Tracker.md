@@ -1,7 +1,7 @@
 ---
 style:
   - default
-Month: 3
+Month:
 ---
 
 ```dataviewjs
@@ -40,8 +40,13 @@ const pages = dv.pages('"Logs"')
   .sort(p => p.file.name, "asc")
   .array();
 
+// --- Title ---
+const titleEl = dv.container.createEl("div");
+titleEl.style.cssText = "font-family:var(--font-monospace); font-size:16px; font-weight:600; color:var(--text-normal); padding:0 0 8px;";
+titleEl.textContent = `${mName} ${year}`;
+
 if (pages.length === 0) {
-  dv.el("p", `**${mName} ${year}** — No sleep logs for this month.`);
+  dv.el("p", `No sleep logs for this month.`);
 } else {
 
 // --- Build chart data ---

@@ -1,5 +1,6 @@
 {
   "promptDelete": false,
   "newFileLocation": "folder",
-  "newFileFolderPath": "Logs"
+  "newFileFolderPath": "Logs",
+  "readableLineLength": false
 }

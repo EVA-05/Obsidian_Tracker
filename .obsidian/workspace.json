@@ -4,24 +4,67 @@
     "type": "split",
     "children": [
       {
-        "id": "2cdc42780be19acc",
+        "id": "f99b02aab15f4614",
         "type": "tabs",
         "children": [
           {
-            "id": "154f8e95e4809439",
+            "id": "629e72c136f24deb",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Templates/Sleep Log Template.md",
+                "file": "Logs/2026-03-05.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Sleep Log Template"
+              "title": "2026-03-05"
+            }
+          },
+          {
+            "id": "1fe729cbeb3c0b26",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Weekly Sleep Tracker.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Weekly Sleep Tracker"
+            }
+          },
+          {
+            "id": "3a50fbffb3103fc6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Monthly Sleep Tracker.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Monthly Sleep Tracker"
+            }
+          },
+          {
+            "id": "0e60c22c25596e1d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Logs/To do.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "To do"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -185,33 +228,34 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "154f8e95e4809439",
+  "active": "1fe729cbeb3c0b26",
   "lastOpenFiles": [
+    "Monthly Sleep Tracker.md",
+    "Weekly Sleep Tracker.md",
+    "Logs/To do.md",
     "Logs/2026-03-05.md",
     "Templates/Sleep Log Template.md",
-    "Weekly Sleep Tracker.md",
-    "Monthly Sleep Tracker.md",
-    "Logs/Sleep - 2026-03-01.md",
-    "Sleep - 2026-03-07.md",
-    "Logs/Sleep - 2026-03-03.md",
-    "Logs/Sleep - 2026-03-02.md",
-    "Logs/Sleep - 2026-03-04.md",
-    "Logs/Sleep - 2026-03-05.md",
-    "Logs/Sleep - 2026-03-31.md",
-    "Logs/Sleep - 2026-03-30.md",
-    "Logs/Sleep - 2026-03-29.md",
-    "Logs/Sleep - 2026-03-28.md",
-    "Logs/Sleep - 2026-03-27.md",
-    "Logs/Sleep - 2026-03-26.md",
-    "Logs/Sleep - 2026-03-25.md",
-    "Logs/Sleep - 2026-03-24.md",
-    "Logs/Sleep - 2026-03-23.md",
     "Logs/Sleep - 2026-03-22.md",
     "Logs/Sleep - 2026-03-21.md",
     "Logs/Sleep - 2026-03-20.md",
     "Logs/Sleep - 2026-03-19.md",
     "Logs/Sleep - 2026-03-18.md",
     "Logs/Sleep - 2026-03-17.md",
+    "Logs/Sleep - 2026-03-16.md",
+    "Logs/Sleep - 2026-03-15.md",
+    "Logs/Sleep - 2026-03-14.md",
+    "Logs/Sleep - 2026-03-13.md",
+    "Logs/Sleep - 2026-03-12.md",
+    "Logs/Sleep - 2026-03-11.md",
+    "Logs/Sleep - 2026-03-10.md",
+    "Logs/Sleep - 2026-03-09.md",
+    "Logs/Sleep - 2026-03-08.md",
+    "Logs/Sleep - 2026-03-07.md",
+    "Logs/Sleep - 2026-03-06.md",
+    "Logs/Sleep - 2026-03-05.md",
+    "Logs/Sleep - 2026-03-04.md",
+    "Logs/Sleep - 2026-03-03.md",
+    "Logs/Sleep - 2026-03-02.md",
     "Logs",
     "Templates",
     "data/Set-FileDates.ps1",
